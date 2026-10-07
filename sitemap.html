@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>網站導覽 - 臺灣本土語文數位學習網</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/components.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳到主要內容區塊</a>
+  <site-header role="banner" id="header-anchor"></site-header>
+  <site-nav role="navigation" aria-label="網站主選單" id="common-nav"></site-nav>
+
+  <div class="layout-container">
+    <site-aside></site-aside>
+    <main id="main-content" role="main" tabindex="-1">
+      <a href="#main-content" class="accesskey-anchor" title="中央內容區快捷鍵 (Alt+C)" accesskey="C">:::</a>
+      <nav aria-label="現在位置" style="margin-bottom: 12px; font-size: 0.95rem;">
+        <a href="index.html">首頁</a> &gt; <span aria-current="page">網站導覽</span>
+      </nav>
+      <h1>網站導覽 (Sitemap)</h1>
+      <ul style="line-height: 2; font-size: 1.1rem; margin-left: 20px;">
+        <li><a href="index.html">1. 網站首頁</a></li>
+        <li><a href="news.html">2. 最新教學與文化公告</a>
+          <ul style="margin-left: 20px;">
+            <li><a href="news.html?category=俗語/諺語">2-1. 俗語與諺語</a></li>
+            <li><a href="news.html?category=民間故事">2-2. 臺灣民間老故事</a></li>
+            <li><a href="news.html?category=老歌賞析">2-3. 經典台語老歌賞析</a></li>
+          </ul>
+        </li>
+        <li><a href="game.html">3. 互動小遊戲專區</a></li>
+        <li><a href="exam.html">4. 認證考古題與線上測驗</a></li>
+        <li><a href="download.html">5. 教材與數位資源下載</a></li>
+        <li><a href="accessibility.html">6. 無障礙服務宣告</a></li>
+      </ul>
+    </main>
+  </div>
+  <site-footer role="contentinfo" id="footer-anchor"></site-footer>
+</body>
+</html>

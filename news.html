@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>教學與文化公告 - 臺灣本土語文數位學習網</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/components.js"></script>
+  <style>
+    .news-item-content { display: flex; gap: 16px; align-items: center; }
+    .news-thumb { width: 130px; height: 95px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border-color); flex-shrink: 0; }
+    @media screen and (max-width: 600px) {
+      .news-item-content { flex-direction: column; align-items: flex-start; }
+      .news-thumb { width: 100%; height: 160px; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content">跳到主要內容區塊</a>
+  <site-header role="banner" id="header-anchor"></site-header>
+  <site-nav role="navigation" aria-label="網站主選單" id="common-nav"></site-nav>
+
+  <div class="layout-container">
+    
+    <!-- 左側：短標題分類快捷欄（修正：使用帶有 category 參數的正規連結，完全移除 href="#"） -->
+    <aside role="complementary" aria-label="教學次選單">
+      <h2 style="font-size: 1.2rem; color: var(--primary-color); margin-bottom: 10px; border-bottom: 2px solid var(--primary-color); padding-bottom: 5px;">
+        📚 文章分類
+      </h2>
+      <ul class="sidebar-menu">
+        <li><a href="news.html">📌 全部教學內容</a></li>
+        <li><a href="news.html?category=俗語/諺語">💡 俗語/諺語</a></li>
+        <li><a href="news.html?category=民間故事">📖 臺灣民間故事</a></li>
+        <li><a href="news.html?category=老歌賞析">🎶 經典台語老歌</a></li>
+      </ul>
+    </aside>
+
+    <main id="main-content" role="main" tabindex="-1">
+      <a href="#main-content" class="accesskey-anchor" title="中央內容區快捷鍵 (Alt+C)" accesskey="C">:::</a>
+
+      <nav aria-label="現在位置" style="margin-bottom: 12px; font-size: 0.95rem;">
+        <a href="index.html">首頁</a> &gt; <span aria-current="page">最新教學與文化公告</span>
+      </nav>
+
+      <h1>最新教學與文化公告</h1>
+
+      <!-- 搜尋與篩選 -->
+      <section aria-label="搜尋與篩選" class="search-box">
+        <div>
+          <label for="category-select">分類：</label>
+          <select id="category-select" onchange="filterAnnouncements()">
+            <option value="ALL">全部分類</option>
+            <option value="俗語/諺語">💡 俗語/諺語</option>
+            <option value="民間故事">📖 民間故事</option>
+            <option value="老歌賞析">🎶 老歌賞析</option>
+          </select>
+        </div>
+
+        <div style="flex: 1; display: flex; gap: 8px;">
+          <input type="text" id="search-input" placeholder="輸入關鍵字（例：食果子、望春風）" oninput="filterAnnouncements()">
+          <button type="button" onclick="filterAnnouncements()">搜尋</button>
+        </div>
+      </section>
+
+      <p id="search-status" aria-live="polite" style="font-size: 1rem; margin-bottom: 15px; font-weight: bold; color: var(--primary-color);"></p>
+
+      <!-- 文章與縮圖清單區 -->
+      <ul class="data-list" id="announcements-list" aria-live="polite">
+        <li class="data-item"><p>資料載入中，請稍候...</p></li>
+      </ul>
+
+    </main>
+  </div>
+
+  <site-footer role="contentinfo" id="footer-anchor"></site-footer>
+
+  <script>
+    let allData = [];
+
+    async function initNewsPage() {
+      try {
+        const response = await fetch('data/announcements.json?t=' + Date.now());
+        if (!response.ok) throw new Error('無法讀取公告');
+        allData = await response.json();
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryParam = urlParams.get('category');
+        if (categoryParam) {
+          document.getElementById('category-select').value = categoryParam;
+        }
+
+        filterAnnouncements();
+      } catch (error) {
+        console.error(error);
+        document.getElementById('announcements-list').innerHTML = 
+          '<li class="data-item"><p style="color: var(--focus-outline); font-weight: bold;">無法讀取教學資料，請確認 data/announcements.json 是否存在。</p></li>';
+      }
+    }
+
+    function filterAnnouncements() {
+      const selectedCat = document.getElementById('category-select').value;
+      const keyword = document.getElementById('search-input').value.trim().toLowerCase();
+      const listContainer = document.getElementById('announcements-list');
+      const statusText = document.getElementById('search-status');
+
+      const filtered = allData.filter(item => {
+        const matchCategory = (selectedCat === 'ALL') || (item.category === selectedCat);
+        const matchKeyword = !keyword || 
+          (item.title && item.title.toLowerCase().includes(keyword)) ||
+          (item.summary && item.summary.toLowerCase().includes(keyword));
+        return matchCategory && matchKeyword;
+      });
+
+      statusText.textContent = `共搜尋到 ${filtered.length} 筆教學內容`;
+
+      if (filtered.length === 0) {
+        listContainer.innerHTML = '<li class="data-item"><p>查無符合條件的內容，請重新搜尋。</p></li>';
+        return;
+      }
+
+      listContainer.innerHTML = filtered.map(item => {
+        const audioTag = item.has_audio ? '<span style="color: #0066cc; font-size: 0.95rem; margin-left: 8px; font-weight: bold;">[ 🔊 附語音 ]</span>' : '';
+        const imgUrl = (item.images && item.images.length > 0) ? item.images[0] : '';
+        const imgHtml = imgUrl ? `<img src="${imgUrl}" alt="${item.title} 縮圖" class="news-thumb" loading="lazy" decoding="async">` : '';
+
+        return `
+          <li class="data-item">
+            <div class="news-item-content">
+              ${imgHtml}
+              <div style="flex: 1;">
+                <div class="data-item-title">
+                  <a href="${item.url}">[${item.category}] ${item.title}</a>
+                  ${audioTag}
+                </div>
+                <div class="data-item-date">發佈日期：${item.date} | 權責單位：${item.department || '本土語推廣組'}</div>
+                <p style="font-size: 1rem; margin-top: 4px;">${item.summary || ''}</p>
+              </div>
+            </div>
+          </li>
+        `;
+      }).join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', initNewsPage);
+  </script>
+</body>
+</html>

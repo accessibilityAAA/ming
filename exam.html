@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>認證考古題與線上測驗 - 臺灣本土語文數位學習網</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/components.js"></script>
+  <style>
+    .exam-section { background-color: var(--card-bg); border: 2px solid var(--border-color); border-radius: 12px; padding: 25px; margin-bottom: 30px; }
+    .question-block { border-bottom: 1px dashed var(--border-color); padding-bottom: 20px; margin-bottom: 20px; }
+    .question-block h3 { font-size: 1.2rem; color: var(--primary-color); margin-bottom: 10px; }
+    .options-list { list-style: none; margin-top: 10px; }
+    .options-list li { margin-bottom: 8px; font-size: 1.1rem; }
+    .options-list label { cursor: pointer; display: flex; align-items: center; gap: 8px; }
+    .options-list input[type="radio"] { width: 22px; height: 22px; }
+    .submit-btn { font-size: 1.15rem; font-weight: bold; padding: 12px 30px; background-color: var(--primary-color); color: #ffffff; border: none; border-radius: 6px; cursor: pointer; min-height: 48px; }
+    .submit-btn:hover { background-color: var(--primary-hover); }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content">跳到主要內容區塊</a>
+  <site-header role="banner" id="header-anchor"></site-header>
+  <site-nav role="navigation" aria-label="網站主選單" id="common-nav"></site-nav>
+
+  <div class="layout-container">
+    <site-aside></site-aside>
+
+    <main id="main-content" role="main" tabindex="-1">
+      <a href="#main-content" class="accesskey-anchor" title="中央內容區快捷鍵 (Alt+C)" accesskey="C">:::</a>
+      
+      <nav aria-label="現在位置" style="margin-bottom: 12px; font-size: 0.95rem;">
+        <a href="index.html">首頁</a> &gt; <span aria-current="page">認證考古題與線上測驗</span>
+      </nav>
+
+      <h1>📝 臺灣本土語文能力認證考古題測驗</h1>
+
+      <form id="exam-form" onsubmit="calculateExamScore(event)">
+        
+        <!-- 📝 考古題一款：初級聽力測驗 -->
+        <section aria-label="考古題一款：初級聽力測驗" class="exam-section">
+          <h2>🎧 測驗款一：【初級聽力理解測驗】</h2>
+          
+          <div class="question-block">
+            <h3>第 1 題：請聽語音內容，選出最符合的說明意思：</h3>
+            <audio controls preload="metadata" style="width: 100%; max-width: 500px; margin-bottom: 12px;">
+              <source src="data/proverb/proverb-001/audio.mp3" type="audio/mpeg">
+              您的瀏覽器不支援音訊播放，或音檔載入中。
+            </audio>
+            <ul class="options-list">
+              <li><label><input type="radio" name="q1" value="A"> A. 提醒大家吃飯時間到了要趕快去吃飯。</label></li>
+              <li><label><input type="radio" name="q1" value="B"> B. 教育大家要珍惜糧食，不可以隨便浪費。</label></li>
+              <li><label><input type="radio" name="q1" value="C" data-correct="true"> C. 提醒大家做人要懂得飲水思源、感恩圖報。</label></li>
+              <li><label><input type="radio" name="q1" value="D"> D. 說明樹木生長與採收水果的農業知識。</label></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 📝 考古題二款：詞彙與語法測驗 -->
+        <section aria-label="考古題二款：詞彙與語法測驗" class="exam-section">
+          <h2>📖 測驗款二：【常用詞彙與生活語法測驗】</h2>
+
+          <div class="question-block">
+            <h3>第 2 題：台語句型「想欲問伊驚歹勢，心內彈琵琶」中，「歹勢」的意思是？</h3>
+            <ul class="options-list">
+              <li><label><input type="radio" name="q2" value="A"> A. 運氣不好、遭遇不幸。</label></li>
+              <li><label><input type="radio" name="q2" value="B" data-correct="true"> B. 不好意思、害羞尷尬。</label></li>
+              <li><label><input type="radio" name="q2" value="C"> C. 身體不舒服或生病。</label></li>
+              <li><label><input type="radio" name="q2" value="D"> D. 心情很糟、非常生氣。</label></li>
+            </ul>
+          </div>
+
+          <div style="text-align: center; margin-top: 25px;">
+            <button type="submit" class="submit-btn">送出測驗卷並計算成績</button>
+          </div>
+        </form>
+
+        <!-- 計分與無障礙結果顯示區 -->
+        <div id="exam-result" aria-live="polite" style="margin-top: 25px; padding: 20px; border-radius: 10px; display: none;" tabindex="-1"></div>
+
+    </main>
+  </div>
+
+  <site-footer role="contentinfo" id="footer-anchor"></site-footer>
+
+  <script>
+    function calculateExamScore(event) {
+      event.preventDefault();
+      const form = event.target;
+      let score = 0;
+
+      const q1 = form.querySelector('input[name="q1"]:checked');
+      const q2 = form.querySelector('input[name="q2"]:checked');
+
+      const resultBox = document.getElementById('exam-result');
+      resultBox.style.display = "block";
+
+      if (!q1 || !q2) {
+        resultBox.style.backgroundColor = "rgba(217, 56, 30, 0.1)";
+        resultBox.style.border = "3px solid var(--focus-outline)";
+        resultBox.innerHTML = `<p style="color: var(--focus-outline); font-size: 1.2rem; font-weight: bold; margin:0;">⚠️ 請完成所有題目後再點選交卷！</p>`;
+        resultBox.focus();
+        return;
+      }
+
+      if (q1.dataset.correct === "true") score += 50;
+      if (q2.dataset.correct === "true") score += 50;
+
+      resultBox.style.backgroundColor = "var(--card-bg)";
+      resultBox.style.border = "3px solid var(--primary-color)";
+
+      resultBox.innerHTML = `
+        <h2 style="color: var(--primary-color); margin-top:0;">📊 測驗結果報告</h2>
+        <p style="font-size: 1.4rem; font-weight: bold;">您的得分：<span style="color: #2e7d32;">${score} 分</span> (滿分 100 分)</p>
+        <p>${score === 100 ? '🎉 太厲害了！全對！代表您的本土語聽力與詞彙能力非常好！' : '👍 繼續加油！多收聽語音與閱讀俗語說明，下次一定能拿高分！'}</p>
+      `;
+      resultBox.focus();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>本土語趣味小遊戲專區 - 新北市板橋區國光國民小學</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/components.js"></script>
+  <style>
+    .game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 15px; }
+    .game-card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 2px 6px rgba(0,0,0,0.03); }
+    .game-card-body { padding: 18px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+    .game-btn-play { background-color: var(--primary-color); color: #fff; padding: 10px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 1.05rem; }
+    .game-panel { display: none; background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 25px; margin-top: 15px; }
+    .game-panel.active { display: block; }
+    
+    .match-option { padding: 12px; border: 2px solid var(--border-color); border-radius: 8px; margin-bottom: 10px; cursor: pointer; font-weight: bold; }
+    .match-option.selected { border-color: var(--primary-color); background-color: rgba(0, 86, 179, 0.1); }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳到主要內容區塊</a>
+  <site-header role="banner" id="header-anchor"></site-header>
+  <site-nav role="navigation" aria-label="網站主選單" id="common-nav"></site-nav>
+
+  <div class="layout-container">
+<aside role="complementary" aria-label="遊戲次選單">
+      <h2 style="font-size: 1.2rem; color: var(--primary-color); margin-bottom: 10px; border-bottom: 2px solid var(--primary-color); padding-bottom: 5px;">🎮 遊戲目錄</h2>
+      <ul class="sidebar-menu">
+        <li><button type="button" class="sidebar-btn" onclick="switchGame('all')">📌 全部遊戲總覽</button></li>
+        <li><button type="button" class="sidebar-btn" onclick="switchGame('game-1')">🎯 1. 聽音辨字大考驗</button></li>
+        <li><button type="button" class="sidebar-btn" onclick="switchGame('game-2')">🃏 2. 漢羅配對翻牌</button></li>
+        <li><button type="button" class="sidebar-btn" onclick="switchGame('game-3')">🔗 3. 俗語意涵配對連連看</button></li>
+      </ul>
+    </aside>
+
+    <main id="main-content" role="main" tabindex="-1">
+      <a href="#main-content" class="accesskey-anchor" title="中央內容區快捷鍵 (Alt+C)" accesskey="C">:::</a>
+      <nav aria-label="現在位置" style="margin-bottom: 12px; font-size: 0.95rem;">
+        <a href="index.html">首頁</a> &gt; <span aria-current="page">本土語趣味小遊戲</span>
+      </nav>
+
+      <h1>🎮 臺灣本土語文趣味互動遊戲</h1>
+
+      <!-- 總覽 -->
+      <div id="game-overview" class="game-panel active" style="border: none; padding: 0; background: none;">
+        <div class="game-grid">
+          <div class="game-card">
+            <div class="img-placeholder">🎯 聽音辨字</div>
+            <div class="game-card-body">
+              <h3>🎯 聽音辨字大考驗</h3>
+              <p>聽真人發音選出正確漢字。</p>
+              <button class="game-btn-play" onclick="switchGame('game-1')">開始遊戲 ▶</button>
+            </div>
+          </div>
+          <div class="game-card">
+            <div class="img-placeholder">🃏 漢羅翻牌</div>
+            <div class="game-card-body">
+              <h3>🃏 漢羅與拼音配對翻牌</h3>
+              <p>翻牌記憶俗語與台羅拼音。</p>
+              <button class="game-btn-play" onclick="switchGame('game-2')">開始遊戲 ▶</button>
+            </div>
+          </div>
+          <div class="game-card">
+            <div class="img-placeholder">🔗 俗語配對</div>
+            <div class="game-card-body">
+              <h3>🔗 俗語意涵連連看</h3>
+              <p>配對俗語與相對應的意思。</p>
+              <button class="game-btn-play" onclick="switchGame('game-3')">開始遊戲 ▶</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 遊戲 1 -->
+      <div id="game-1" class="game-panel">
+        <button onclick="switchGame('all')">← 返回總覽</button>
+        <h2>🎯 遊戲一：【聽音辨字大考驗】</h2>
+        <button class="game-btn-play" onclick="alert('播放音檔中...')">🔊 點我播放發音</button>
+      </div>
+
+      <!-- 遊戲 2 -->
+      <div id="game-2" class="game-panel">
+        <button onclick="switchGame('all')">← 返回總覽</button>
+        <h2>🃏 遊戲二：【漢羅與拼音配對翻牌】</h2>
+        <p>（翻牌記憶區...）</p>
+      </div>
+
+      <!-- 遊戲 3：新增連連看 -->
+      <div id="game-3" class="game-panel">
+        <button onclick="switchGame('all')">← 返回總覽</button>
+        <h2>🔗 遊戲三：【俗語意涵配對連連看】</h2>
+        <p>點選左邊俗語，再點選右邊正確的意思：</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+          <div>
+            <div class="match-option" onclick="selectMatch('A', this)">1. 一枝草，一點露</div>
+            <div class="match-option" onclick="selectMatch('B', this)">2. 對牛吹簫</div>
+          </div>
+          <div>
+            <div class="match-option" onclick="checkMatch('B', this)">A. 白費心思、徒勞無功</div>
+            <div class="match-option" onclick="checkMatch('A', this)">B. 天生我材必有用、天無絕人之路</div>
+          </div>
+        </div>
+        <p id="match-res" aria-live="polite" style="margin-top: 15px; font-weight: bold;"></p>
+      </div>
+
+    </main>
+  </div>
+  <site-footer role="contentinfo" id="footer-anchor"></site-footer>
+
+  <script>
+    function switchGame(panelId) {
+      document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active'));
+      if (panelId === 'all') document.getElementById('game-overview').classList.add('active');
+      else document.getElementById(panelId).classList.add('active');
+    }
+
+    let selectedKey = null;
+    let selectedEl = null;
+
+    function selectMatch(key, el) {
+      document.querySelectorAll('.match-option').forEach(o => o.classList.remove('selected'));
+      selectedKey = key;
+      selectedEl = el;
+      el.classList.add('selected');
+    }
+
+    function checkMatch(targetKey, el) {
+      if (!selectedKey) { alert("請先點選左邊的俗語！"); return; }
+      const res = document.getElementById('match-res');
+      if (selectedKey === targetKey) {
+        res.style.color = "#2e7d32";
+        res.textContent = "🎉 配對成功！太棒了！";
+      } else {
+        res.style.color = "var(--focus-outline)";
+        res.textContent = "❌ 配對錯誤，再想看看喔！";
+      }
+    }
+  </script>
+</body>
+</html>

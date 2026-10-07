@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>網站首頁 - 臺灣本土語文數位學習與文化公告網</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/components.js"></script>
+</head>
+<body class="home-page">
+
+  <a class="skip-link" href="#main-content">跳到主要內容區塊</a>
+
+  <site-header role="banner" id="header-anchor"></site-header>
+  <site-nav role="navigation" aria-label="網站主選單" id="common-nav"></site-nav>
+
+  <main id="main-content" role="main" tabindex="-1" style="max-width: 1200px; margin: 30px auto; padding: 0 20px;">
+    <a href="#main-content" class="accesskey-anchor" title="中央內容區快捷鍵 (Alt+C)" accesskey="C">:::</a>
+
+    <!-- 1. 類似臺北風格的「大圓形視覺按鈕入口區」 -->
+    <section aria-label="快速學習專區" style="margin-bottom: 40px;">
+      <h1 style="font-size: 2rem; color: var(--primary-color); text-align: center; margin-bottom: 25px; border-bottom: none;">
+        🗣️ 臺灣本土語文數位學習網
+      </h1>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; text-align: center;">
+        
+        <a href="news.html?category=俗語/諺語" style="text-decoration: none; color: inherit;">
+          <div class="category-card">
+            <div style="font-size: 3rem; margin-bottom: 10px;">💡</div>
+            <h2 style="font-size: 1.3rem; margin: 0; color: var(--primary-color);">日常俗語/諺語</h2>
+            <p style="font-size: 0.95rem; opacity: 0.8; margin-top: 5px;">附台羅拼音與朗讀</p>
+          </div>
+        </a>
+
+        <a href="news.html?category=民間故事" style="text-decoration: none; color: inherit;">
+          <div class="category-card">
+            <div style="font-size: 3rem; margin-bottom: 10px;">📖</div>
+            <h2 style="font-size: 1.3rem; margin: 0; color: var(--primary-color);">老故事繪本</h2>
+            <p style="font-size: 0.95rem; opacity: 0.8; margin-top: 5px;">廣播劇風格聽故事</p>
+          </div>
+        </a>
+
+        <a href="news.html?category=老歌賞析" style="text-decoration: none; color: inherit;">
+          <div class="category-card">
+            <div style="font-size: 3rem; margin-bottom: 10px;">🎶</div>
+            <h2 style="font-size: 1.3rem; margin: 0; color: var(--primary-color);">經典老歌賞析</h2>
+            <p style="font-size: 0.95rem; opacity: 0.8; margin-top: 5px;">歌詞漢羅對照賞析</p>
+          </div>
+        </a>
+
+        <a href="game.html" style="text-decoration: none; color: inherit;">
+          <div class="category-card">
+            <div style="font-size: 3rem; margin-bottom: 10px;">🎮</div>
+            <h2 style="font-size: 1.3rem; margin: 0; color: var(--primary-color);">互動小遊戲</h2>
+            <p style="font-size: 0.95rem; opacity: 0.8; margin-top: 5px;">聽音辨字與連連看</p>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- 2. 最新公告與教學資料清單區 -->
+    <section aria-label="最新教學公告">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--primary-color); padding-bottom: 10px; margin-bottom: 20px;">
+        <h2 style="font-size: 1.6rem; margin: 0; color: var(--primary-color);">📌 最新教學與消息</h2>
+        <a href="news.html" style="font-size: 1.1rem; font-weight: bold; color: var(--primary-color);">查看更多 →</a>
+      </div>
+
+      <ul class="data-list" id="home-announcements-list" aria-live="polite">
+        <li class="data-item"><p>資料載入中，請稍候...</p></li>
+      </ul>
+    </section>
+  </main>
+
+  <site-footer role="contentinfo" id="footer-anchor"></site-footer>
+
+  <script>
+    async function loadHomeAnnouncements() {
+      const listContainer = document.getElementById('home-announcements-list');
+      try {
+        const response = await fetch('data/announcements.json?t=' + Date.now());
+        if (!response.ok) throw new Error('無法讀取公告資料');
+
+        const announcements = await response.json();
+        const latestItems = announcements.slice(0, 5);
+
+        if (latestItems.length === 0) {
+          listContainer.innerHTML = '<li class="data-item"><p>目前尚無任何教學內容。</p></li>';
+          return;
+        }
+
+        listContainer.innerHTML = latestItems.map(item => {
+          const audioTag = item.has_audio ? '<span style="color: #0066cc; font-size: 0.95rem; margin-left: 8px; font-weight: bold;">[ 🔊 附語音 ]</span>' : '';
+          const imageTag = (item.images && item.images.length > 0) ? '<span style="color: #2e7d32; font-size: 0.95rem; margin-left: 8px; font-weight: bold;">[ 🖼️ 附插圖 ]</span>' : '';
+
+          return `
+            <li class="data-item">
+              <div class="data-item-title">
+                <a href="${item.url}">[${item.category}] ${item.title}</a>
+                ${audioTag}
+                ${imageTag}
+              </div>
+              <div class="data-item-date">發佈日期：${item.date} | 權責單位：${item.department || '本土語推廣組'}</div>
+              <p style="font-size: 1.05rem; margin-top: 5px;">${item.summary || ''}</p>
+            </li>
+          `;
+        }).join('');
+
+      } catch (error) {
+        console.error(error);
+        listContainer.innerHTML = '<li class="data-item"><p style="color: var(--focus-outline); font-weight: bold;">無法取得教學資料，請確認 data/announcements.json 檔案是否存在。</p></li>';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadHomeAnnouncements);
+  </script>
+</body>
+</html>

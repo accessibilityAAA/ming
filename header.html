@@ -1,0 +1,37 @@
+<div class="header-container">
+  <div>
+    <!-- 定位點 Alt+U -->
+    <a href="#header-anchor" class="accesskey-anchor" title="頂部導覽區快捷鍵 (Alt+U)" accesskey="U">:::</a>
+    
+    <!-- 標題 -->
+    <a href="index.html" class="site-title" aria-label="新北市板橋區國光國民小學 本土語文數位學習網 首頁">
+      <span class="desktop-title">🏫 板橋區國光國小｜本土語文數位學習網</span>
+      <span class="mobile-title">🏫 國光國小｜本土語網</span>
+    </a>
+  </div>
+
+  <!-- 無障礙輔助工具列與全站搜尋 -->
+  <div class="header-tools" role="region" aria-label="全站功能與輔助工具列">
+    
+    <!-- 全站搜尋區塊 -->
+    <div class="site-search-wrapper">
+      <input type="search" id="global-search-input" placeholder="🔍 全站搜尋..." aria-label="全站關鍵字搜尋" oninput="handleGlobalSearch(this.value)" onfocus="handleGlobalSearch(this.value)">
+      <div id="global-search-results" class="search-results-popover" role="region" aria-live="polite" style="display: none;"></div>
+    </div>
+
+    <!-- 字級縮放 -->
+    <div class="font-size-selector" aria-label="字體大小調整">
+      <span style="font-size: 0.85rem; font-weight: bold; margin-right: 2px;">字級：</span>
+      <button type="button" onclick="setFontSize('small')" aria-label="縮小字級">小</button>
+      <button type="button" onclick="setFontSize('medium')" aria-label="恢復預設中字級">中</button>
+      <button type="button" onclick="setFontSize('large')" aria-label="放大大字級">大</button>
+    </div>
+
+    <!-- 主題切換 -->
+    <div class="theme-toggle">
+      <button type="button" id="theme-btn" onclick="toggleTheme()" aria-label="切換深淺色模式">
+        🌙 切換模式
+      </button>
+    </div>
+  </div>
+</div>

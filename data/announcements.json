@@ -1,0 +1,74 @@
+[
+  {
+    "id": "download-001-20261004",
+    "category": "教材下載",
+    "language": "台語",
+    "title": "【教材下載】臺灣閩南語常用俗語與諺語手冊",
+    "date": "2026-10-04",
+    "department": "國光國小本土語組",
+    "summary": "本手冊收錄日常常用台語俗語、台羅拼音對照與生活應用範例，適合國小中高年級學生自主學習。",
+    "url": "data/download/download-001/download-001-20261004.html",
+    "has_audio": false,
+    "images": []
+  },
+  {
+    "id": "idiom-001-20261004",
+    "category": "民間故事",
+    "language": "台語",
+    "title": "【成語故事】井底之蛙（井底跤蛤仔）",
+    "date": "2026-10-04",
+    "department": "國光國小本土語組",
+    "summary": "井底跤蛤仔，看無天外天。",
+    "url": "data/idiom/idiom-001/idiom-001-20261004.html",
+    "has_audio": true,
+    "images": []
+  },
+  {
+    "id": "proverb-001-20261004",
+    "category": "俗語/諺語",
+    "language": "台語",
+    "title": "【台語俗語】食果子拜樹頭",
+    "date": "2026-10-04",
+    "department": "國光國小本土語組",
+    "summary": "食果子，拜樹頭。",
+    "url": "data/proverb/proverb-001/proverb-001-20261004.html",
+    "has_audio": true,
+    "images": []
+  },
+  {
+    "id": "proverb-002-20261004",
+    "category": "俗語/諺語",
+    "language": "台語",
+    "title": "【台語俗語】一枝草，一點露",
+    "date": "2026-10-04",
+    "department": "國光國小本土語組",
+    "summary": "一枝草，一點露。",
+    "url": "data/proverb/proverb-002/proverb-002-20261004.html",
+    "has_audio": true,
+    "images": []
+  },
+  {
+    "id": "song-001-20261004",
+    "category": "老歌賞析",
+    "language": "台語",
+    "title": "【老歌賞析】望春風",
+    "date": "2026-10-04",
+    "department": "國光國小本土語組",
+    "summary": "獨夜無伴守燈下，清風對面吹。",
+    "url": "data/song/song-001/song-001-20261004.html",
+    "has_audio": true,
+    "images": []
+  },
+  {
+    "id": "story-001-20261004",
+    "category": "民間故事",
+    "language": "台語",
+    "title": "【成語故事】對牛彈琴（對牛吹簫）",
+    "date": "2026-10-04",
+    "department": "國光國小本土語組",
+    "summary": "對牛吹簫，伊無彩工。",
+    "url": "data/story/story-001/story-001-20261004.html",
+    "has_audio": true,
+    "images": []
+  }
+]

@@ -1,0 +1,62 @@
+npm install mammoth
+
+Word 檔案內容範例格式：
+
+分類：成語故事
+標題：井底之蛙
+日期：2026-10-04
+漢羅：井底跤蛤仔，看無天外天。
+台羅：Tsing-té-kha kap-á, khàn-bô thinn-uāi-thinn.
+解說：生活在水井底部的青蛙，以為天空只有井口那麼大...
+
+
+文章公告器/ (專案根目錄)
+├── index.html                      # [頁面] 網站首頁 (大圖示視覺入口、最新教學與消息)
+├── news.html                       # [頁面] 最新教學與文化公告 (關鍵字搜尋、分類篩選、列表)
+├── game.html                       # [頁面] 本土語趣味互動遊戲 (聽音辨字、漢羅翻牌、連連看)
+├── exam.html                       # [頁面] 認證考古題與線上測驗 (線上計分、語音測驗)
+├── download.html                   # [頁面] 教材與數位資源下載專區
+├── accessibility.html              # [頁面] 無障礙服務宣告 (AccessKey 快捷鍵說明)
+├── privacy.html                    # [頁面] 隱私權保護政策宣告
+├── security-policy.html            # [頁面] 網站安全政策宣告
+├── sitemap.html                    # [頁面] 網站導覽 (Sitemap)
+│
+├── header.html                     # [組件] 頁首全域組件 (標題、無障礙輔助工具列、AccessKey Alt+U)
+├── nav.html                        # [組件] 網站主選單組件 (導覽列、RWD 漢堡選單)
+├── aside.html                      # [組件] 側邊欄分類導覽組件
+├── footer.html                     # [組件] 頁尾全域組件 (校址電話、宣告連結、AccessKey Alt+Z)
+│
+├── build-json.js                   # [腳本] 自動化批次產生器 (自動索引 data/、優化 <audio preload="none">)
+├── 架構.txt                        # [說明] 專案原始結構紀錄檔
+│
+├── css/
+│   └── style.css                   # [樣式] 現代通用無障礙樣式表 (高對比主題、字級縮放、雙欄 Layout)
+│
+├── js/
+│   └── components.js               # [腳本] Web Components 智慧自動載入器、無障礙控制器
+│
+└── data/                           # [資料庫] 文章、故事與影音靜態資料區
+    ├── announcements.json          # [JSON] 由 build-json.js 自動批次索引產出的文章清單檔
+    │
+    ├── idiom/                      # [成語故事] 資料夾
+    │   └── idiom-001/
+    │       ├── idiom-001-20261004.html  # 【成語故事】井底之蛙（井底跤蛤仔）
+    │       └── audio.mp3               # 真人台語故事朗讀音檔
+    │
+    ├── proverb/                    # [台語俗語] 資料夾
+    │   ├── proverb-001/
+    │   │   ├── proverb-001-20261004.html # 【台語俗語】食果子拜樹頭
+    │   │   └── audio.mp3               # 真人台語發音朗讀音檔
+    │   └── proverb-002/
+    │       ├── proverb-002-20261004.html # 【台語俗語】一枝草，一點露
+    │       └── audio.mp3               # 真人台語發音朗讀音檔
+    │
+    ├── song/                       # [老歌賞析] 資料夾
+    │   └── song-001/
+    │       ├── song-001-20261004.html  # 【經典老歌】望春風
+    │       └── audio.mp3               # 經典名曲朗讀與試聽音檔
+    │
+    └── story/                      # [民間故事] 資料夾
+        └── story-001/
+            ├── story-001-20261004.html  # 【成語故事】對牛彈琴（對牛吹簫）
+            └── audio.mp3               # 真人台語故事朗讀音檔
